@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TO DO LIST</title>
+    <style>
+      body {
+        background-color: teal;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0%;
+        margin-top: 0%;
+      }
+
+      .card {
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s;
+        background-color: whitesmoke;
+        border-radius: 4px;
+      }
+
+      .card:hover {
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
+        cursor: pointer;
+        padding: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1
+        style="background-color: wheat; color: black; width: 100%; height: 40px; border-radius: 10px; padding: 8px; padding-right: 0px"
+      >
+        TO-DO LIST
+      </h1>
+    </div>
+    <div>
+      <forms style="margin-top: 300px">
+        <label for="taskname" style="color: whitesmoke">Task name:</label><br />
+        <input
+          type="text"
+          id="taskname"
+          placeholder="Task Name"
+          style="margin-bottom: 5px"
+        /><br />
+        <label for="description" style="color: whitesmoke">Description:</label
+        ><br />
+        <input
+          type="text"
+          id="description"
+          placeholder="Description"
+          style="margin-bottom: 5px; "
+        /><br />
+        <label for="Date" style="margin-left: 0px; color: whitesmoke"
+          >Date:</label
+        ><br />
+        <input
+          type="date"
+          id="date"
+          style="margin-bottom: 5px; margin-left: 0px; width: 96.5%"
+        /><br />
+        <input
+          id="submit"
+          type="submit"
+          value="Add Task"
+          style="margin-left: 0px ; background-color: wheat; border-radius: 5px; margin-top: 4px; width:100%"
+        />
+      </forms>
+    </div>
+    <p id="navbar"></p>
+    <script>
+      // ===========================================
+      // DELETE
+
+      function del(i) {
+        var b = [];
+        for (var j = 0; j < students.length; j++) {
+          if (j != i) {
+            b.push(students[j]);
+          }
+        }
+        students = b;
+        render();
+      }
+      // ===========================================
+      // EDIT
+
+      function edit(i) {
+        document.getElementById("taskname").value = students[i].TaskName;
+        document.getElementById("description").value = students[i].Description;
+        document.getElementById("date").value = students[i].Date;
+        k = i;
+      }
+      // ===========================================
+      // GLOBAL
+
+      var students = [];
+      var k = -1;
+      submit.addEventListener("click", function abc() {
+        var a = {
+          TaskName: document.getElementById("taskname").value,
+          Description: document.getElementById("description").value,
+          Date: document.getElementById("date").value
+        };
+        if (k == -1) {
+          students.push(a);
+          render();
+        } else if (k != -1) {
+          students[k] = a;
+          render();
+          k = -1;
+        }
+      });
+
+      // ==========================================================
+      // RENDER
+
+      function render() {
+        var listHTML = "";
+        for (var i = 0; i < students.length; i++) {
+          listHTML += `<div class="card">
+          <div style="font-weight:bold; margin-bottom:10px; text-decoration:underline;">${
+            students[i].TaskName
+          }</div>
+          <div style="margin-bottom:4px">${students[i].Description}</div>
+          <div style="margin-bottom:4px">${students[i].Date}</div>
+          <button id="del" onclick="del(${i})" style="border-radius:5px; background-color:wheat;">Delete</button>
+          <button id="edit" onclick="edit(${i})" style="border-radius:5px; background-color:wheat;">Edit</button>
+          </div>`;
+        }
+        navbar.innerHTML = listHTML;
+        document.getElementById("taskname").value = "";
+        document.getElementById("description").value = "";
+        document.getElementById("date").value = "";
+      }
+    </script>
+  </body>
+</html>
